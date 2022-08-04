@@ -1,0 +1,17 @@
+{
+  "name": "dataStructure",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:nocodig/dataStructure.git",
+  "author": "nocoding <17801149870@163.com>",
+  "license": "MIT",
+  "scripts": {
+    "test": "ts-node src/index.ts"
+  },
+  "devDependencies": {
+    "@types/node": "^18.6.3",
+    "ts-node": "^10.9.1",
+    "tslib": "^2.4.0",
+    "typescript": "^4.7.4"
+  }
+}
