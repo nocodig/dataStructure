@@ -1,6 +1,9 @@
-const Node = require('./node')
+import Node from './node'
 
 class NodeList {
+  head: null | Node<any>;
+  length: number;
+
   constructor() {
     this.head = null;
     this.length = 0;
@@ -10,7 +13,7 @@ class NodeList {
    * 向链表末尾添加值
    * @param {*} ele 向链表中添加的值
    */
-  append(ele) {
+  append<T>(ele: T) {
     if(!this.head) {
       this.head = new Node(ele);
     } else {
@@ -32,7 +35,7 @@ class NodeList {
    * 查询该值在链表中的索引
    * @param {*} ele 查询索引的值
    */
-  indexOf(ele) {
+  indexOf<T>(ele: T) {
     let index = -1;
     let current = this.head;
 
@@ -52,7 +55,7 @@ class NodeList {
    * @param {*} position 位置
    * @param {*} ele 值
    */
-  insert(position, ele) {
+  insert<T>(position:number, ele: T) {
     const node = new Node(ele);
 
     if (position < 0 || this.length < position) {
@@ -66,12 +69,14 @@ class NodeList {
         this.head = node;
       } else {
         while(currentIndex + 1 !== position) {
-          current = current.next;
-          currentIndex = this.indexOf(current.val);
+          if (current) {
+            current = current.next;
+            currentIndex = this.indexOf(current!.val);
+          }
         }
   
-        node.next = current.next;
-        current.next = node;
+        node.next = current!.next;
+        current!.next = node;
       }
 
       this.length++;
@@ -82,7 +87,7 @@ class NodeList {
    * 将值为element的节点移除
    * @param {*} element 值
    */
-  remove(element) {
+  remove<T>(element: T) {
     let pre = this.head;
     let current = this.head;
 
@@ -90,15 +95,15 @@ class NodeList {
       return;
     }
     
-    while(current.val !== element) {
+    while(current!.val !== element) {
       pre = current;
-      current = current.next;
+      current = current!.next;
     }
     
     if (pre === this.head) {
-      this.head = current.next;
+      this.head = current!.next;
     } else {
-      pre.next = current.next;
+      pre!.next = current!.next;
     }
 
     this.length--;
@@ -108,7 +113,7 @@ class NodeList {
    * 移除该索引位置的节点
    * @param {*} position 索引
    */
-  removeAt(position) {
+  removeAt(position:number) {
     let current = this.head;
     let pre = this.head;
 
@@ -117,11 +122,11 @@ class NodeList {
     }
 
     if (position === 0) {
-      this.head = current.next;
+      this.head = current!.next;
     } else {
       while(current) {
         if(this.indexOf(current.val) === position) {
-          pre.next = current.next;
+          pre!.next = current.next;
         }
         pre = current;
         current = current.next;
@@ -165,18 +170,18 @@ class NodeList {
   }
 }
 
-const nodlist = new NodeList();
-nodlist.append(2);
-nodlist.append(3);
-nodlist.append(4);
-nodlist.append(5);
+const nodeList = new NodeList();
+nodeList.append(2);
+nodeList.append(3);
+nodeList.append(4);
+nodeList.append(5);
 
-console.log(nodlist.indexOf(2000))
+console.log(nodeList.indexOf(2000))
 
-// nodlist.insert(4,10)
+// nodeList.insert(4,10)
 
-// nodlist.remove(4)
+// nodeList.remove(4)
 
-nodlist.removeAt(1)
+nodeList.removeAt(1)
 
-console.log(nodlist.toString())
+console.log(nodeList.toString())
